@@ -9,7 +9,8 @@ Back End: [Rico](github.com/Hikari9), [Kitop](github.com/christofferkho)
 2. Clone your own fork into your desktop. Download [GitHub for Desktop](https://desktop.github.com/) first, then click "Clone".
 3. Create your own branch in that fork. Open Git Shell and type `git checkout -b <taskname>`
 4. Perform your changes, push, then commit to your local fork.
-5. Create a pull request [here](https://github.com/Hikari9/mapbook/compare) and let your front/back end partner merge your changes. 
+5. Create a pull request [here](https://github.com/Hikari9/mapbook/compare) and let your front/back end partner merge your changes.
+You may also create a pull request in GitHub for Desktop.
 
 Avoid pushing directly to master branch. It is advisable to create a *pull request* first to be approved by partner programmer so as to avoid disruption of the system.
 
