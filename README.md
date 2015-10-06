@@ -18,33 +18,36 @@ Back End
 
 3. Click the "Clone" button in GitHub app and choose *username/mapbook*. You may also clone using the Git Shell or Terminal. Type `git clone` and change `YOUR-USERNAME` with your GitHub username.
 ```sh
-git clone https://github.com/YOUR-USERNAME/mapbook
-Cloning into 'mapbook'...
-remote: Counting objects: 999, done.
-remote: Compressing objects: 100% (999/999), done.
-remove: Total 999 (delta 1), reused 999 (delta 1)
-Unpacking objects: 100% (999/999), done.
+$ git clone https://github.com/YOUR-USERNAME/mapbook
+
+	Cloning into 'mapbook'...
+	remote: Counting objects: 7, done.
+	remote: Compressing objects: 100% (7/7), done.
+	remove: Total 7 (delta 1), reused 0 (delta 1)
+	Unpacking objects: 100% (7/7), done.
 ```
 
 4. Set-up the fork of your remote using Git Shell or Terminal. Type `git remote -v` to see your current configuration.
 ```sh
 $ git remote -v
-origin  https://github.com/YOUR-USERNAME/mapbook.git (fetch)
-origin  https://github.com/YOUR-USERNAME/mapbook.git (push)
+
+	origin  https://github.com/YOUR-USERNAME/mapbook.git (fetch)
+	origin  https://github.com/YOUR-USERNAME/mapbook.git (push)
 ```
 
 5. Type `git remote add upstream` to add the *original* repository to your remotes. Note that the original is from Hikari9. It will look like this:
 ```sh
-git remote add upstream https://github.com/Hikari9/mapbook.git
+$ git remote add upstream https://github.com/Hikari9/mapbook.git
 ```
 
 6. Verify your remotes by typing `git remote -v` again. It should look something like this:
 ```sh
 $ git remote -v
-origin    https://github.com/YOUR-USERNAME/mapbook.git (fetch)
-origin    https://github.com/YOUR-USERNAME/mapbook.git (push)
-upstream  https://github.com/Hikari9/mapbook.git (fetch)
-upstream  https://github.com/Hikari9/mapbook.git (push)
+
+	origin    https://github.com/YOUR-USERNAME/mapbook.git (fetch)
+	origin    https://github.com/YOUR-USERNAME/mapbook.git (push)
+	upstream  https://github.com/Hikari9/mapbook.git (fetch)
+	upstream  https://github.com/Hikari9/mapbook.git (push)
 ```
 
 For technicalities with regards to setting up, see https://help.github.com/articles/fork-a-repo.
@@ -56,17 +59,19 @@ Your local fork will not be up-to-date unless you want it to. You may want to up
 1. Check if you need to update your fork. You may do so by typing `git status`.
 ```sh
 $ git status
-On branch master
-Your branch is behind 'upstream/master' by [X] commits, and can be fast-forwarded.
-  (use "git pull" to update your local branch)
+
+	On branch master
+	Your branch is behind 'upstream/master' by [X] commits, and can be fast-forwarded.
+	  (use "git pull" to update your local branch)
 ```
 
 2. Sync from the upstream remote by typing `git pull`.
 ```sh
 $ git pull upstream master
-* branch          master	-> FETCH_HEAD
-* [new branch]    master	-> upstream/master
-Already up-to-date
+
+	* branch          master	-> FETCH_HEAD
+	* [new branch]    master	-> upstream/master
+	Already up-to-date
 ```
 
 3. Your changes should already reflect in your Git application.
@@ -78,28 +83,41 @@ Changes within the group repository should be something everyone should verify. 
 1. Create your own branch in that fork. Type `git checkout -b <branchname>`.
 ```sh
 $ git checkout -b <branchname>
-Switched to a new branch '<branchname>'.
+
+	Switched to a new branch '<branchname>'.
 ```
 
 2. Perform your changes, add, then commit them either through Git application (Commit button), or through the Terminal by typing `git commit -am`.
 ```sh
 $ git commit -am "Commit message."
-[branchname 2sda3f3] Commit message.
-create mode 100644 Commit message.
+
+	[branchname 2sda3f3] Commit message.
+	create mode 100644 Commit message.
+	 1 file changed, 98 insertions(+), 13 deletions(-).
 ```
 
 Alternative:
 
 ```sh
 $ git add --all
-git commit -m "Commit message."
-[branchname 2sda3f3] Commit message.
-create mode 100644 Commit message.
+$ git commit -m "Commit message."
+
+	[branchname 2sda3f3] Commit message.
+	create mode 100644 Commit message.
+	 1 file changed, 98 insertions(+), 13 deletions(-).
 ```
 
 3. Push your changes in your local fork through the Git application (Sync), or through the Terminal by typing `git push --set-upstream origin branchname`.
 ```
 $ git push --set-upstream origin branchname
+	
+	Counting objects: 7, done.
+	Delta compression using up to 2 threads.
+	Compressing objects: 100% (3/3), done.
+	Writing objects: 100%
+	Total 3 (delta 1), reused 0 (delta 0)
+	To https://github.com/YOUR-USERNAME/mapbook.git
+		??????..2sda3f3		master -> master
 ```
 
 4. Create a pull request throught the Git application or [here](https://github.com/Hikari9/mapbook/compare) and let your front/back end partner merge your changes.
