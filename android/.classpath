@@ -6,5 +6,6 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry exported="true" kind="lib" path="libs/Parse-1.10.3.jar"/>
+	<classpathentry kind="lib" path="libs/bolts-android-1.2.1.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
