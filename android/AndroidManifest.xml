@@ -21,6 +21,12 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        <meta-data
+            android:name="com.parse.APPLICATION_ID"
+            android:value="YyN0pW0gRrPy4vQYebW86IT03bYysrQZi8n5XkfC" />
+        <meta-data
+            android:name="com.parse.CLIENT_KEY"
+            android:value="AjGE0VZly2K7Qja72nmAgQa0JAt02zpZPWlCN48g" />
         <activity
             android:name="com.mapbook.locationsaver.DatabaseTester"
             android:label="@string/app_name" >
