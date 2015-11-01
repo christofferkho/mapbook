@@ -94,14 +94,14 @@ public class Path {
 		
 		// replace the last GPS coordinate with checkpoint
 		// if the previous GPS coordinate is an empty marker
-		if (checkpoint != null && !isEmpty() && back().getLocation() == null && point.distanceInKilometersTo(back()) < epsilon * 1e3) {
+		if (checkpoint != null && !isEmpty() && back().getLocation() == null && point.distanceInKilometersTo(back()) <= epsilon * 1e3) {
 			pathList.set(size() - 1, new Marker(latitude, longitude, this, checkpoint));
 			return true;
 		}
 		
 		// otherwise, add new point to the list if it's far
 		// from the last GPS coordinate in the path
-		else if (isEmpty() || point.distanceInKilometersTo(back()) >= epsilon * 1e3) {
+		else if (isEmpty() || point.distanceInKilometersTo(back()) > epsilon * 1e3) {
 			pathList.add(new Marker(latitude, longitude, this, checkpoint));
 			return true;
 		}
@@ -134,9 +134,10 @@ public class Path {
 	
 	/**
 	 * Saves all markers in the path list into the Parse database.
-	 * Destroys current Path object after save to ensure data stability.
+	 * Note that this destroys the current Path object after save to ensure data stability.
+	 * @see com.parse.ParseObject#saveEventually()
 	 */
-	public void saveAndDestroy() {
+	public void save() {
 		// save path node
 		parseObject.saveEventually();
 		
@@ -144,7 +145,8 @@ public class Path {
 		for (Marker marker : pathList) {
 			if (marker.getLocation() != null)
 				marker.getLocation().save();
-			marker.save();		}
+			marker.save();
+		}
 		
 		// decapacitate current path object to ensure stability
 		destroy();

@@ -82,7 +82,7 @@ public class Location {
 	public void setImage(Bitmap image) {
 		// check first if null
 		if (image == null) {
-			parseObject.put("image", null);
+			parseObject.remove("image");
 			return;
 		}
 		

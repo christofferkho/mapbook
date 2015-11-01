@@ -40,15 +40,18 @@ public class Marker extends ParseGeoPoint {
 	// setters
 	public void setLocation(Location location) {
 		this.location = location;
-		parseObject.put("location", location == null ? null : location.getParseObject());
+		if (location == null) parseObject.remove("location");
+		else parseObject.put("location",  location.getParseObject());
 	}
 	public void setPath(Path path) {
 		this.path = path;
-		parseObject.put("path", path == null ? null : path.getParseObject());
+		if (path == null) parseObject.remove("path");
+		else parseObject.put("path",  path.getParseObject());
 	}
 	public void setUser(ParseUser user) {
-		this.user = user;
-		parseObject.put("user", user == null ? null : user);
+		this.user = user;;
+		if (user == null) parseObject.remove("user");
+		else parseObject.put("user",  user);
 	}
 	@Override
 	public void setLatitude(double latitude) {
