@@ -1,4 +1,4 @@
-package com.example.locationsaver;
+package com.mapbook.locationsaver;
 
 import android.content.ContentValues;
 import android.content.Context;

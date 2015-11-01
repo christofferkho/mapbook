@@ -1,5 +1,7 @@
-package com.example.locationsaver;
+package com.mapbook.locationsaver;
 
+
+import com.example.locationsaver.R;
 
 import android.app.Activity;
 import android.content.Context;

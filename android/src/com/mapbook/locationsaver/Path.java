@@ -1,4 +1,4 @@
-package com.example.locationsaver;
+package com.mapbook.locationsaver;
 
 public class Path {
 	int id;
