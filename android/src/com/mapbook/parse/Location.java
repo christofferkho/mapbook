@@ -8,12 +8,58 @@ import com.parse.ParseObject;
 import android.graphics.Bitmap;
 
 /**
+ * Abstracts manipulation of 
  * @author Rico Tiongson
  * @version 1.0
  * 11/01/15
  */
 public class Location {
+
+	/**
+	 * Creates information-loaded location ready to be uploaded to Parse.
+	 * Don't forget to call save() to save it to the database.
+	 * @param name
+	 * @param address
+	 * @param description
+	 * @param contact
+	 * @param notes
+	 * @param image
+	 * To create a Bitmap image from your activity, locate the image using BitmapFactory.<br>
+	 * {@code Bitmap image = BitmapFactory.decodeResource(getResources(), R.drawable.IMAGE_NAME);}
+	 */
+	public Location(String name, String address, String description, String contact, String notes, Bitmap image) {		// add basic properties
+		setName(name);
+		setAddress(address);
+		setDescription(description);
+		setContact(contact);
+		setNotes(notes);
+		setImage(image);
+	}
+
+	/**
+	 * Creates information-loaded location ready to be uploaded to Parse.
+	 * Assigns empty strings to members by default.
+	 * Don't forget to call save() to save it to the database.
+	 */
+	public Location() {
+		setName("");
+		setAddress("");
+		setDescription("");
+		setContact("");
+		setNotes("");
+		setImage(null);
+	}
 	
+	/**
+	 * Saves the location object in the Parse database locally, then eventually online if connected to the internet.
+	 * @see com.parse.ParseObject#saveEventually()
+	 */
+	public void save() {
+		getParseObject().saveEventually();
+	}
+	
+	
+	// members
 	private ParseObject parseObject = new ParseObject("LOCATION");
 
 	// getters
@@ -48,40 +94,6 @@ public class Location {
 		// Create the parse file
 		ParseFile file = new ParseFile("location-" + getName() + ".png", imageBytes);
 		parseObject.put("image", file);
-	}
-
-	public Location() {
-		setName("");
-		setAddress("");
-		setDescription("");
-		setContact("");
-		setNotes("");
-		setImage(null);
-	}
-	
-	/**
-	 * Creates information-loaded location ready to be uploaded to Parse.
-	 * Don't forget to call save() to save it to the database.
-	 * @param name
-	 * @param address
-	 * @param description
-	 * @param contact
-	 * @param notes
-	 * @param image
-	 * 
-	 * To create a Bitmap image from your activity, locate the image using BitmapFactory.
-	 * <pre>
-	 * {@code Bitmap image = BitmapFactory.decodeResource(getResources(), R.drawable.IMAGE_NAME);}
-	 * </pre>
-	 */
-	
-	public Location(String name, String address, String description, String contact, String notes, Bitmap image) {		// add basic properties
-		setName(name);
-		setAddress(address);
-		setDescription(description);
-		setContact(contact);
-		setNotes(notes);
-		setImage(image);
 	}
 
 	@Override
