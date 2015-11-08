@@ -32,10 +32,10 @@ public class Login extends MapbookActivity {
 	}
 	
 	// components
-	public EditText username, password;
-	public TextView logo, forgotPassword, message;
-	public Button login, register;
-	public ProgressBar loading, loadingRegister;
+	public static EditText username, password;
+	public static TextView logo, forgotPassword, message;
+	public static Button login, register;
+	public static ProgressBar loading, loadingRegister;
 	
 	// prepare component fonts and variables
 	void prepareComponents() {
@@ -101,6 +101,13 @@ public class Login extends MapbookActivity {
 				ParseUser.logInInBackground(user, pass, onParseLogin);
 			}
 		});
+		
+		// get parameters from register, if any
+		Intent intent = getIntent();
+		if (intent.hasExtra("username"))
+			username.setText(intent.getStringExtra("username"));
+		if (intent.hasExtra("password"))
+			password.setText(intent.getStringExtra("password"));
 	}
 	
 	// handle clicking the register button
@@ -110,7 +117,10 @@ public class Login extends MapbookActivity {
 			public void onClick(View v) {
 				register.setVisibility(View.INVISIBLE);
 				loadingRegister.setVisibility(View.VISIBLE);
-				launchActivity(Register.class);
+				final Intent intent = new Intent(Login.this, Register.class);
+				String userName = username.getText().toString();
+				if (!userName.isEmpty()) intent.putExtra("username", userName);
+				startActivity(intent);
 			}
 		});
 	}
