@@ -1,5 +1,7 @@
 package com.mapbook.locationsaver;
 
+import com.mapbook.ui.MapbookActivity;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
