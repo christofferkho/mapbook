@@ -16,7 +16,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class Login extends MapbookActivity {
-	
 	/**
 	 * method onCreate
 	 * @param savedInstanceState
@@ -25,8 +24,20 @@ public class Login extends MapbookActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
-		
-		// prepare components
+		prepareComponents();
+		handleMessageHiding();
+		handleParseLogin();
+		handleRegister();
+	}
+	
+	// components
+	public EditText username, password;
+	public TextView logo, forgotPassword, message;
+	public Button login, register;
+	public ProgressBar loading, loadingRegister;
+	
+	// prepare component fonts and variables
+	void prepareComponents() {
 		username = (EditText) findViewById(R.id.login_username);
 		password = (EditText) findViewById(R.id.login_password);
 		
@@ -38,33 +49,37 @@ public class Login extends MapbookActivity {
 		register = (Button) findViewById(R.id.login_register);
 		
 		loading = (ProgressBar) findViewById(R.id.login_loading);
-		
-		// hide message if unnecessary
+		loadingRegister = (ProgressBar) findViewById(R.id.login_loading_register);
+	}
+	
+	// hide "Invalid username/password" message when textboxes are tapped
+	void handleMessageHiding() {
+		// bind message hider with text boxes
 		View.OnClickListener messageHider = new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				message.setVisibility(View.GONE);
 			}
 		};
-
-		// bind message hider with text boxes
 		username.setOnClickListener(messageHider);
 		password.setOnClickListener(messageHider);
-		
-		// setup callback on login
+	}
+	
+	// handle login check with Parse thru Login button
+	void handleParseLogin() {
+		// connect to Parse on Login
 		final LogInCallback onParseLogin = new LogInCallback() {
 			public void done(ParseUser user, ParseException ex) {
 				if (ex == null && user != null) {
 					// login success
-					setContentView(R.layout.register);
+					alert("Login success");
 				} else {
 					// cannot login, show message
 					ex.printStackTrace();
-					
 					message.setVisibility(View.VISIBLE);
-					loading.setVisibility(View.GONE);
-					login.setVisibility(View.VISIBLE);
 				}
+				loading.setVisibility(View.GONE);
+				login.setVisibility(View.VISIBLE);
 			}
 		};
 		
@@ -87,11 +102,15 @@ public class Login extends MapbookActivity {
 		});
 	}
 	
-	// components
-	public EditText username, password;
-	public TextView logo, forgotPassword, message;
-	public Button login, register;
-	public ProgressBar loading;
-	
-	
+	// handle clicking the register button
+	void handleRegister() {
+		register.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				register.setVisibility(View.INVISIBLE);
+				loadingRegister.setVisibility(View.VISIBLE);
+				launchActivity(Register.class);
+			}
+		});
+	}
 }

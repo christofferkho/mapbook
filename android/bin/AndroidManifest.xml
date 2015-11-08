@@ -6,7 +6,7 @@
 
     <uses-sdk
         android:minSdkVersion="16"
-        android:targetSdkVersion="21" />
+        android:targetSdkVersion="30" />
     
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -46,14 +46,14 @@
             android:label="@string/title_activity_create_path" >
         </activity>
         <!-- UI ACTIVITIES -->
-        <activity
-            android:name="com.mapbook.ui.Login"
-            android:label="" >
-            
+        <activity android:name="com.mapbook.ui.Login" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name="com.mapbook.ui.Register">
+            
         </activity>
     </application>
 

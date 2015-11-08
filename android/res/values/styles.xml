@@ -22,5 +22,13 @@
         <item name="android:background">@drawable/textbox</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:textColorHint">@color/hint</item>
+        <item name="android:imeOptions">actionNext</item>
+        <item name="android:singleLine">true</item>
+    </style>
+    <style name="long_textbox" parent="@style/textbox">
+        <item name="android:layout_width">265sp</item>
+    </style>
+    <style name="long_button" parent="@style/button">
+        <item name="android:layout_width">265sp</item>
     </style>
 </resources>

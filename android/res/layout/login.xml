@@ -37,7 +37,8 @@
         style="@style/textbox"
         android:layout_below="@+id/login_username"
         android:hint="Password"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:imeOptions="actionDone" />
     
     <TextView
         android:id="@+id/login_message"
@@ -62,7 +63,7 @@
         android:layout_height="30dp"
         android:layout_below="@+id/login_password"
         android:layout_marginTop="30sp"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_centerHorizontal="true" />
     
     <Button
@@ -70,6 +71,15 @@
         style="@style/button"
         android:layout_below="@+id/login_submit"
         android:text="register" />
+    
+    <ProgressBar
+        android:id="@+id/login_loading_register"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/login_submit"
+        android:layout_marginTop="5sp"
+        android:visibility="gone"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/login_forgot_password"
