@@ -48,7 +48,7 @@
         <!-- UI ACTIVITIES -->
         <activity
             android:name="com.mapbook.ui.Login"
-            android:label="Login" >
+            android:label="" >
             
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
