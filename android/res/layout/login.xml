@@ -8,69 +8,62 @@
     android:baselineAligned="false"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context="com.mapbook.ui.Login" >
-
+    tools:context="com.mapbook.ui.Login">
+    
     <TextView
         android:id="@+id/login_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="20dp"
         android:ems="10"
-        android:gravity="center"
+        android:gravity="center_horizontal"
         android:inputType="none"
+        android:padding="20dp"
         android:text="Mapbook."
         android:textColor="@color/white"
         android:textSize="40sp" />
-
+    
     <EditText
         android:id="@+id/login_username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/textbox"
         android:layout_below="@+id/login_logo"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:ems="10"
-        android:gravity="center"
-        android:hint="Username" >
+        android:hint="Username"
+        android:inputType="text" >
 
         <requestFocus />
     </EditText>
 
     <EditText
         android:id="@+id/login_password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/textbox"
         android:layout_below="@+id/login_username"
-        android:layout_centerHorizontal="true"
-        android:ems="10"
-        android:gravity="center"
         android:hint="Password"
         android:inputType="textPassword" />
 
     <Button
-        android:id="@+id/login_button_login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/login_submit"
+        style="@style/button"
         android:layout_below="@+id/login_password"
-        android:layout_centerHorizontal="true"
-        android:text="login"
-        android:textSize="20sp" />
-
+        android:layout_marginTop="20sp"
+        android:text="login" />
+    
     <Button
-        android:id="@+id/login_button_register"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/login_button_login"
-        android:layout_centerHorizontal="true"
-        android:text="register"
-        android:textSize="20sp" />
+        android:id="@+id/login_register"
+        style="@style/button"
+        android:layout_below="@+id/login_submit"
+        android:text="register" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/login_forgot_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/login_button_register"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/login_register"
         android:layout_centerHorizontal="true"
         android:text="Forgot Password?"
         android:textColor="@color/white" />
+
 
 </RelativeLayout>

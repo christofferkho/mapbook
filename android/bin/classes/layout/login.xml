@@ -31,7 +31,6 @@
         android:ems="10"
         android:gravity="center"
         android:hint="Username" >
-
         <requestFocus />
     </EditText>
 
@@ -47,28 +46,24 @@
         android:inputType="textPassword" />
 
     <Button
-        android:id="@+id/login_button_login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/login_submit"
+        style="@style/action_button"
+        android:style="@style/action_button"
         android:layout_below="@+id/login_password"
-        android:layout_centerHorizontal="true"
-        android:text="login"
-        android:textSize="20sp" />
+        android:text="login" />
 
     <Button
-        android:id="@+id/login_button_register"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/login_button_login"
-        android:layout_centerHorizontal="true"
-        android:text="register"
-        android:textSize="20sp" />
+        android:id="@+id/login_register"
+        style="@style/action_button"
+        android:style="@style/action_button"
+        android:layout_below="@+id/login_submit"
+        android:text="register" />
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/login_button_register"
+        android:layout_below="@+id/login_register"
         android:layout_centerHorizontal="true"
         android:text="Forgot Password?"
         android:textColor="@color/white" />
