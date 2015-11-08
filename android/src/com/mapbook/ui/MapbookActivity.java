@@ -5,6 +5,8 @@ import java.util.HashSet;
 import com.parse.Parse;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
@@ -64,4 +66,22 @@ public class MapbookActivity extends Activity {
 	public static Typeface pacificoFont = null;
 	static boolean usePacifico = true;
 	static HashSet<Integer> pacificoViews = new HashSet<Integer>();
+	
+
+	// default message box
+	public AlertDialog alert(String message) {
+		return alert(message, "");
+	}
+	public AlertDialog alert(String message, String title) {
+		return new AlertDialog.Builder(this)
+	    .setTitle(title)
+	    .setMessage(message)
+	    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+	        public void onClick(DialogInterface dialog, int which) { 
+	            // continue with delete
+	        }
+	     })
+	    .setIcon(android.R.drawable.ic_dialog_alert)
+	     .show();
+	}
 }
