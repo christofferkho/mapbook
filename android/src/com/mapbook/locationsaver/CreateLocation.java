@@ -1,8 +1,6 @@
 package com.mapbook.locationsaver;
 
 
-import com.example.locationsaver.R;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -60,6 +58,7 @@ public class CreateLocation extends Activity {
 		save = (Button) findViewById(R.id.save);
         save.setOnClickListener(new OnClickListener() {
 			
+			@Override
 			public void onClick(View v) 
 			{
 				close(LOC_SAVED);				
@@ -69,6 +68,7 @@ public class CreateLocation extends Activity {
         newPath = (Button) findViewById(R.id.newPath);
         newPath.setOnClickListener(new OnClickListener() {
 			
+			@Override
 			public void onClick(View v) 
 			{
 				close(PATH_SAVED);				

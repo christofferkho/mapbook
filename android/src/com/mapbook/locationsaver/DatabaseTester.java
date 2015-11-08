@@ -1,7 +1,5 @@
 package com.mapbook.locationsaver;
 
-import com.example.locationsaver.R;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -39,7 +37,8 @@ public class DatabaseTester extends Activity {
         //This is the create button. If you press this, you will go to a new activity
         button = (Button) findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+            @Override
+			public void onClick(View v) {
             	create();
             }
         });
@@ -90,7 +89,8 @@ public class DatabaseTester extends Activity {
      * @param resultCode
      * @param data
      */
-    public void onActivityResult(int requestCode, int resultCode, Intent data){
+    @Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data){
     	
     	//get information from intent
     	String name = data.getStringExtra(CreateLocation.LOC_NAME);

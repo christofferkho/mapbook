@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.locationsaver"
+    package="com.mapbook.locationsaver"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -19,14 +19,13 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:label="@string/app_name" >
         <meta-data
             android:name="com.parse.APPLICATION_ID"
-            android:value="YyN0pW0gRrPy4vQYebW86IT03bYysrQZi8n5XkfC" />
+            android:value="@string/parse_application_id" />
         <meta-data
             android:name="com.parse.CLIENT_KEY"
-            android:value="AjGE0VZly2K7Qja72nmAgQa0JAt02zpZPWlCN48g" />
+            android:value="@string/parse_client_key" />
         <activity
             android:name="com.mapbook.locationsaver.DatabaseTester"
             android:label="@string/app_name" >
