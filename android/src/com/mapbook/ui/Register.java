@@ -91,6 +91,7 @@ public class Register extends MapbookActivity {
 				// check first if passwords match
 				if (!passWord.equals(confirm.getText().toString())) {
 					alert("Passwords don't match");
+					confirm.requestFocus();
 					return;
 				}
 				
