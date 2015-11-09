@@ -131,6 +131,7 @@ public class Register extends MapbookActivity {
 							intent.putExtra("password", passWord);
 							alert("Signed up successfully!");
 							startActivity(intent);
+							finish();
 						}
 						else switch (ex.getCode()) {
 							case ParseException.USERNAME_TAKEN:

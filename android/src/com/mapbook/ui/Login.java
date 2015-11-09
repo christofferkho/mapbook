@@ -29,6 +29,7 @@ public class Login extends MapbookActivity {
 		handleMessageHiding();
 		handleParseLogin();
 		handleRegister();
+		showMessage();
 	}
 	
 	// components
@@ -73,7 +74,8 @@ public class Login extends MapbookActivity {
 			public void done(ParseUser user, ParseException ex) {
 				if (ex == null && user != null) {
 					// login success
-					alert("Login success");
+					launchActivity(Dashboard.class, "Login success");
+					return;
 				} else {
 					// cannot login, show message
 					ex.printStackTrace();
@@ -121,6 +123,7 @@ public class Login extends MapbookActivity {
 				String userName = username.getText().toString();
 				if (!userName.isEmpty()) intent.putExtra("username", userName);
 				startActivity(intent);
+				finish();
 			}
 		});
 	}

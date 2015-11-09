@@ -47,13 +47,17 @@
             android:label="@string/title_activity_create_path" >
         </activity>
         <!-- UI ACTIVITIES -->
-        <activity android:name="com.mapbook.ui.Login" >
+        <activity android:name="com.mapbook.ui.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.mapbook.ui.Login" >
+        </activity>
         <activity android:name="com.mapbook.ui.Register">
+        </activity>
+        <activity android:name="com.mapbook.ui.Dashboard">
             
         </activity>
     </application>

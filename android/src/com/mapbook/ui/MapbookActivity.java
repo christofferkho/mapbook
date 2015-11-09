@@ -1,6 +1,7 @@
 package com.mapbook.ui;
 
 import com.parse.Parse;
+import com.parse.ParseUser;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -32,6 +33,8 @@ public class MapbookActivity extends Activity {
 			Parse.enableLocalDatastore(this);
 			Parse.initialize(this); // Parse.initialize(this, APPLICATION_ID, CLIENT_KEY);
 			initializedParse = true;
+			// do not log out on exit
+			ParseUser.enableRevocableSessionInBackground();
 		}
 	}
 	
@@ -59,15 +62,15 @@ public class MapbookActivity extends Activity {
 	static boolean usePacifico = true;
 	
 	// default message box
-	public AlertDialog alert(String message) {
+	public AlertDialog alert(Object message) {
 		return alert(message, "");
 	}
 	
 	// message box with title
-	public AlertDialog alert(String message, String title) {
+	public AlertDialog alert(Object message, Object title) {
 		return new AlertDialog.Builder(this)
-	    .setTitle(title)
-	    .setMessage(message)
+	    .setTitle(title.toString())
+	    .setMessage(message.toString())
 	    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 	        public void onClick(DialogInterface dialog, int which) { 
 	            // continue with delete
@@ -81,7 +84,15 @@ public class MapbookActivity extends Activity {
 	public void launchActivity(Class<?> activityClass) {
 		Intent intent = new Intent(this.getApplicationContext(), activityClass);
 		startActivity(intent);
-		// finish();
+		finish();
+	}
+	
+	// launch new activity with message
+	public void launchActivity(Class<?> activityClass, Object message) {
+		Intent intent = new Intent(this.getApplicationContext(), activityClass);
+		intent.putExtra("message", message.toString());
+		startActivity(intent);
+		finish();
 	}
 	
 	// launch activity on click handler
@@ -92,5 +103,12 @@ public class MapbookActivity extends Activity {
 				launchActivity(activityClass);
 			}
 		});
+	}
+	
+	// receive messages from another activity and show on dialog
+	public void showMessage() {
+		Intent intent = getIntent();
+		if (intent.hasExtra("message"))
+			alert(intent.getStringExtra("message"));
 	}
 }
