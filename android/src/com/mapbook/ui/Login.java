@@ -74,7 +74,7 @@ public class Login extends MapbookActivity {
 			public void done(ParseUser user, ParseException ex) {
 				if (ex == null && user != null) {
 					// login success
-					launchActivity(Dashboard.class, "Login success");
+					launchActivity(MarkerView.class, "Login success");
 					return;
 				} else {
 					// cannot login, show message
