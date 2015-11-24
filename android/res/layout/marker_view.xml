@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/marker_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/content"
     android:gravity="center_horizontal"
     android:orientation="vertical" >
-
+    
+	<!-- HEADER -->
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:background="@color/background" >
-
+        android:background="@color/background" >'
         <TextView
-            android:id="@+id/marker_view_header"
+        	android:id="@+id/marker_view_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -23,7 +24,12 @@
             android:paddingTop="10dp"
             android:text="My Markers"
             android:textAppearance="?android:attr/textAppearanceLarge" />
-
     </RelativeLayout>
+    
+    <Button
+        android:id="@+id/buttonz"
+        android:layout_width="313dp"
+        android:layout_height="wrap_content"
+        android:text="Button" />
 
 </LinearLayout>
