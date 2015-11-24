@@ -53,7 +53,7 @@
         </activity>
         <activity android:name="com.mapbook.ui.Register">
         </activity>
-        <activity android:name="com.mapbook.ui.MarkerView">
+        <activity android:name="com.mapbook.ui.LocationList">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
