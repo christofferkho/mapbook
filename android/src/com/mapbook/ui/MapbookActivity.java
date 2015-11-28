@@ -13,9 +13,11 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.PopupMenu;
+import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.TextView;
 
 /**
@@ -125,15 +127,34 @@ public class MapbookActivity extends Activity {
 			alert(intent.getStringExtra("message"));
 	}
 	
-	// popup menu
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (!super.onKeyDown(keyCode, event)) return false;
-		if (keyCode == KeyEvent.KEYCODE_MENU) {
-			openOptionsMenu();
+	PopupMenu popupMenu;
+	View popupView;
+	/**
+	 * Shows a popup menu right next to the view.
+	 * Uses R.menu.popup by default.
+	 * @param view
+	 * @return
+	 */
+	public PopupMenu showPopup(View view) {
+		if (popupMenu == null || popupView != view) {
+			popupView = view;
+			popupMenu = new PopupMenu(this, view);
+			MenuInflater inflater = popupMenu.getMenuInflater();
+			inflater.inflate(R.menu.popup, popupMenu.getMenu());
+			popupMenu.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+				@Override
+				public boolean onMenuItemClick(MenuItem item) {
+					onPopupMenuItemClick(item);
+					return true;
+				}
+			});
 		}
-		System.out.println(keyCode);
-		return true;
+		popupMenu.show();
+		return popupMenu;
+	}
+	
+	protected void onPopupMenuItemClick(MenuItem item) {
+		// can be overriden
 	}
 	
 }

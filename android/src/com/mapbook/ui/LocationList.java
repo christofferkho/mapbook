@@ -13,6 +13,7 @@ import com.parse.ParseUser;
 
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -20,6 +21,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 public class LocationList extends MapbookActivity {
@@ -110,20 +112,12 @@ public class LocationList extends MapbookActivity {
 	}
 	
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.actions, menu);
-		return true;
-	}
-	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
+	protected void onPopupMenuItemClick(MenuItem item) {
 		switch (item.getItemId()) {
 			case R.id.menu_add_marker:
-				// TODO: open add marker activity
-				return true;
-			default:
-				return super.onOptionsItemSelected(item);
+				// TODO: launch add marker activity
+				alert("To do: launch add marker activity");
+				break;
 		}
 	}
 	
