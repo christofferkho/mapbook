@@ -13,6 +13,9 @@ import com.parse.ParseUser;
 
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -31,6 +34,7 @@ public class LocationList extends MapbookActivity {
 		setContentView(R.layout.location_view);
 		prepareComponents();
 		GPSTracker.trackActivity(this);
+		openOptionsMenu();
 		showUserLocations();
 	}
 	
@@ -104,5 +108,23 @@ public class LocationList extends MapbookActivity {
 		
 		return entryLayout;
 	}
-
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.actions, menu);
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case R.id.menu_add_marker:
+				// TODO: open add marker activity
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
+	}
+	
 }

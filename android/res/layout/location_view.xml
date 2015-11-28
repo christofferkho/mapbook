@@ -24,12 +24,7 @@
             android:paddingTop="10dp"
             android:text="My Locations"
             android:textAppearance="?android:attr/textAppearanceLarge" />
+
     </RelativeLayout>
-    
-    <Button
-        android:id="@+id/buttonz"
-        android:layout_width="313dp"
-        android:layout_height="wrap_content"
-        android:text="Button" />
 
 </LinearLayout>

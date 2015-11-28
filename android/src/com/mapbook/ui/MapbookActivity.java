@@ -1,5 +1,6 @@
 package com.mapbook.ui;
 
+import com.mapbook.locationsaver.R;
 import com.parse.Parse;
 import com.parse.ParseUser;
 
@@ -10,7 +11,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.MenuInflater;
 import android.view.View;
+import android.view.Window;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 /**
@@ -30,6 +35,7 @@ public class MapbookActivity extends Activity {
 	 */
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		if (!initializedParse) {
 			Parse.enableLocalDatastore(this);
 			Parse.initialize(this); // Parse.initialize(this, APPLICATION_ID, CLIENT_KEY);
@@ -118,4 +124,16 @@ public class MapbookActivity extends Activity {
 		if (intent.hasExtra("message"))
 			alert(intent.getStringExtra("message"));
 	}
+	
+	// popup menu
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (!super.onKeyDown(keyCode, event)) return false;
+		if (keyCode == KeyEvent.KEYCODE_MENU) {
+			openOptionsMenu();
+		}
+		System.out.println(keyCode);
+		return true;
+	}
+	
 }
