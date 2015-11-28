@@ -1,9 +1,13 @@
 package com.mapbook.parse;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.parse.ParseFile;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import android.graphics.Bitmap;
 
@@ -28,6 +32,7 @@ public class Location {
 	 * {@code Bitmap image = BitmapFactory.decodeResource(getResources(), R.drawable.IMAGE_NAME);}
 	 */
 	public Location(String name, String address, String description, String contact, String notes, Bitmap image) {		// add basic properties
+		this.parseObject = new ParseObject("LOCATION");
 		setName(name);
 		setAddress(address);
 		setDescription(description);
@@ -35,7 +40,15 @@ public class Location {
 		setNotes(notes);
 		setImage(image);
 	}
-
+	
+	/**
+	 * Wraps a ParseObject through this Location class.
+	 * @param parseObject
+	 */
+	public Location(ParseObject parseObject) {
+		this.parseObject = parseObject;
+	}
+	
 	/**
 	 * Creates information-loaded location ready to be uploaded to Parse.
 	 * Assigns empty strings to members by default.
@@ -56,11 +69,10 @@ public class Location {
 	 */
 	public void save() {
 		getParseObject().saveEventually();
-	}
-	
+	}	
 	
 	// members
-	private ParseObject parseObject = new ParseObject("LOCATION");
+	private ParseObject parseObject;
 
 	// getters
 	public ParseObject getParseObject() {return parseObject;}

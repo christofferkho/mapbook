@@ -1,13 +1,19 @@
 package com.mapbook.parse;
 
+import java.util.List;
+
+import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 public class Marker extends ParseGeoPoint {
 	
 	// constructors
 	public Marker(double latitude, double longitude) {
+		this.user = ParseUser.getCurrentUser();
+		this.parseObject = new ParseObject("MARKER");
 		setCoordinates(latitude, longitude);
 	}
 	public Marker(double latitude, double longitude, Path path) {
@@ -24,11 +30,27 @@ public class Marker extends ParseGeoPoint {
 		setLocation(location);
 	}
 	
+	/**
+	 * Wraps a ParseObject through this Marker class.
+	 * @param parseObject
+	 * @throws  
+	 */
+	public Marker(ParseObject parseObject) {
+		this.parseObject = parseObject;
+		if (parseObject.has("location"))
+			this.location = new Location(parseObject.getParseObject("location"));
+		if (parseObject.has("path")) {
+			try {this.path = new Path(parseObject.getParseObject("path"));}
+			catch (ParseException ex) {this.path = null; ex.printStackTrace();}
+		}
+		this.user = parseObject.getParseUser("user");
+	}
+	
 	// members
 	private Location location = null;
 	private Path path = null;
-	private ParseUser user = ParseUser.getCurrentUser();
-	private ParseObject parseObject = new ParseObject("MARKER");
+	private ParseUser user;
+	private ParseObject parseObject;
 	
 	// getters
 	public Location getLocation() {return location;}
@@ -76,5 +98,10 @@ public class Marker extends ParseGeoPoint {
 	public void save() {
 		getParseObject().saveEventually();
 	}
+	
+
+	
+	
+
 	
 }

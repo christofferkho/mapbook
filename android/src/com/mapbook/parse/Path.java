@@ -3,8 +3,10 @@ package com.mapbook.parse;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 /**
  * 
@@ -20,6 +22,7 @@ public class Path {
 	 * Epsilon value of DEFAULT_EPSILON will be used.
 	 */
 	public Path() {
+		this.parseObject = new ParseObject("PATH");
 		this.setName("");
 		this.setDescription("");
 		this.setEpsilon(DEFAULT_EPSILON);
@@ -32,6 +35,7 @@ public class Path {
 	 * @param description text describing the path
 	 */
 	public Path(String name, String description) {
+		this.parseObject = new ParseObject("PATH");
 		this.setName(name);
 		this.setDescription(description);
 		this.setEpsilon(DEFAULT_EPSILON);
@@ -44,16 +48,27 @@ public class Path {
 	 * @param epsilon the distance to exceed (meters) to be able to add a new marker
 	 */
 	public Path(String name, String description, double epsilon) {
+		this.parseObject = new ParseObject("PATH");
 		this.setName(name);
 		this.setDescription(description);
 		this.setEpsilon(epsilon);
 	}
 	
+	/**
+	 * Wraps a ParseObject using this Path class.
+	 * @param parseObject
+	 * @throws ParseException 
+	 */
+	public Path(ParseObject parseObject) throws ParseException {
+		this.parseObject = parseObject;
+		this.setEpsilon(DEFAULT_EPSILON);
+		this.syncMarkers();
+	}
+	
 	// members
 	private double epsilon; // allowable meter range until next point
 	private ArrayList<Marker> pathList = new ArrayList<Marker>();
-	private ParseObject parseObject = new ParseObject("PATH");
-	private boolean destroyed = false;
+	private ParseObject parseObject;
 	
 	// static members
 	public static double DEFAULT_EPSILON = 15.0; // 15 meters, change-able
@@ -64,7 +79,6 @@ public class Path {
 	public double getEpsilon() {return epsilon;}
 	public List<Marker> getPathList() {return pathList;}
 	public ParseObject getParseObject() {return parseObject;}
-	public boolean isDestroyed() {return destroyed;}
 	
 	// setters
 	public void setName(String name) {parseObject.put("name", name);}
@@ -86,8 +100,6 @@ public class Path {
 	 * @return true if the point was successfully inserted
 	 */
 	public boolean add(double latitude, double longitude, Location checkpoint) {
-		// check first if already destroyed
-		if (destroyed) return false;
 		
 		// create the point to be added
 		ParseGeoPoint point = new ParseGeoPoint(latitude, longitude);
@@ -121,25 +133,14 @@ public class Path {
 	}
 	
 	/**
-	 * Decapacitates current Path object.
-	 */
-	public void destroy() {
-		if (!destroyed) {
-			pathList.clear();
-			pathList = null;
-			parseObject = null;
-			destroyed = true;
-		}
-	}
-	
-	/**
 	 * Saves all markers in the path list into the Parse database.
-	 * Note that this destroys the current Path object after save to ensure data stability.
 	 * @see com.parse.ParseObject#saveEventually()
 	 */
 	public void save() {
 		// save path node
 		parseObject.saveEventually();
+		
+		// TO DO: delete markers that refer to this path but are NOT in the path list
 		
 		// save checkpoint locations
 		for (Marker marker : pathList) {
@@ -148,7 +149,21 @@ public class Path {
 			marker.save();
 		}
 		
-		// decapacitate current path object to ensure stability
-		destroy();
+	}
+	
+	/**
+	 * Synchronizes this Path object to include the Marker objects associated with it into the path list.
+	 * Synchronizes with local datastore if offline.
+	 * @throws ParseException 
+	 */
+	public void syncMarkers() throws ParseException {
+		getPathList().clear();
+		ParseQuery<ParseObject> query = ParseQuery.getQuery("MARKER");
+		query.whereEqualTo("path", getParseObject());
+		query.orderByAscending("createdAt");
+		List<ParseObject> list = query.find();
+		for (ParseObject markerObject : list) {
+			getPathList().add(new Marker(markerObject));
+		}
 	}
 }

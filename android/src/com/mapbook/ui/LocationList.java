@@ -1,10 +1,15 @@
 package com.mapbook.ui;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import com.mapbook.GPSTracker;
 import com.mapbook.locationsaver.R;
 import com.mapbook.parse.Location;
+import com.mapbook.parse.Marker;
+import com.mapbook.parse.User;
+import com.parse.ParseUser;
 
 import android.os.Bundle;
 import android.view.View;
@@ -24,10 +29,12 @@ public class LocationList extends MapbookActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.location_view);
 		prepareComponents();
+		GPSTracker.trackActivity(this);
+
 		((Button) findViewById(R.id.buttonz)).setOnClickListener(new OnClickListener() {
 			@Override
-			public void onClick(View view) {
-				addLocation(new Location(hex(), hex(), hex(), hex(), hex(), null));
+			public void onClick(View v) {
+				((Button) v).setText(String.format("(%.4f, %.4f)", GPSTracker.getLatitude(), GPSTracker.getLongitude()));
 			}
 		});
 	}
