@@ -1,7 +1,11 @@
 package com.mapbook;
 
+import com.mapbook.ui.MapbookActivity;
+
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -35,14 +39,18 @@ public class GPSTracker {
 		// get the location manager
 		currentActivity = activity;
 		locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
+		
 
 		// request updates from both wifi and GPS
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, getLocationListener());
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, getLocationListener());
-        
-        // try GPS before wifi because wifi is more stable
-        locationListener.onLocationChanged(locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER));
-        locationListener.onLocationChanged(locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER));
+		try {
+			locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, getLocationListener());
+			locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, getLocationListener());
+
+	        locationListener.onLocationChanged(locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER));
+	        locationListener.onLocationChanged(locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER));
+		} catch (SecurityException ex) {
+			((MapbookActivity) activity).alert("Location cannot be derived.");
+		}
 	}
 	
 	static {
@@ -58,5 +66,9 @@ public class GPSTracker {
 			@Override public void onProviderEnabled(String provider) {}
 			@Override public void onProviderDisabled(String provider) {}
 		};
+	}
+	
+	public static String getString() {
+		return latitude + " " + longitude;
 	}
 }

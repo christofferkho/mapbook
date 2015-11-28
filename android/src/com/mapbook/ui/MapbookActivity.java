@@ -5,6 +5,7 @@ import com.parse.ParseUser;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -36,20 +37,26 @@ public class MapbookActivity extends Activity {
 			// do not log out on exit
 			ParseUser.enableRevocableSessionInBackground();
 		}
+		if (getIntent().hasExtra("message"))
+			alert(getIntent().getStringExtra("message"));
 	}
 	
 	@Override
 	public View findViewById(int id) {
 		View view = super.findViewById(id);
+		changeFont(this, view);
+		return view;
+	}
+	
+	public static void changeFont(Context context, View view) {
 		if (usePacifico && (view instanceof TextView)) {
 			// load font if does not exist yet
 			if (pacificoFont == null)
-				pacificoFont = Typeface.createFromAsset(this.getAssets(), "fonts/Pacifico.ttf");
+				pacificoFont = Typeface.createFromAsset(context.getAssets(), "fonts/Pacifico.ttf");
 			
 			// set the font to view
 			((TextView) view).setTypeface(pacificoFont);
 		}
-		return view;
 	}
 	
 	// specific application keys to connect to Mapbook's Parse database online

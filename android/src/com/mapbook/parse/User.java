@@ -27,7 +27,7 @@ public class User {
 				list.add(new Marker(marker));
 			return list;
 		} catch (ParseException ex) {
-			ex.printStackTrace();
+			ex.printStackTrace(System.err);
 			return null;
 		}
 	}

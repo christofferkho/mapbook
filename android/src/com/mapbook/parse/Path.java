@@ -3,6 +3,7 @@ package com.mapbook.parse;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mapbook.GPSTracker;
 import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
@@ -61,6 +62,7 @@ public class Path {
 	 */
 	public Path(ParseObject parseObject) throws ParseException {
 		this.parseObject = parseObject;
+		this.parseObject.fetchIfNeeded();
 		this.setEpsilon(DEFAULT_EPSILON);
 		this.syncMarkers();
 	}
@@ -91,6 +93,26 @@ public class Path {
 	public Marker back() {return pathList.get(size() - 1);}
 	
 	/**
+	 * Adds the current GPS coordinates as an empty marker to the path list.
+	 * It won't be added if the distance from the most recent marker does not exceed <var>epsilon</var> meters.<br>
+	 * @return true if the point was successfully inserted
+	 */
+	public boolean add() {
+		return this.add(GPSTracker.getLatitude(), GPSTracker.getLongitude(), null);
+	}
+	
+	/**
+	 * Adds a (named) marker to the path list with a Location checkpoint.
+	 * It won't be added if the distance from the most recent marker does not exceed <var>epsilon</var> meters.<br>
+	 * If the checkpoint is <var>null</var>, an empty marker will be added instead.
+	 * @param checkpoint the information about the location
+	 * @return true if the point was successfully inserted
+	 */
+	public boolean add(Location checkpoint) {
+		return this.add(GPSTracker.getLatitude(), GPSTracker.getLongitude(), checkpoint);
+	}
+	
+	/**
 	 * Adds a marker to the path list.
 	 * It won't be added if the distance from the most recent marker does not exceed <var>epsilon</var> meters.<br>
 	 * If the checkpoint is <var>null</var>, an empty marker will be added instead.
@@ -107,14 +129,20 @@ public class Path {
 		// replace the last GPS coordinate with checkpoint
 		// if the previous GPS coordinate is an empty marker
 		if (checkpoint != null && !isEmpty() && back().getLocation() == null && point.distanceInKilometersTo(back()) <= epsilon * 1e3) {
-			pathList.set(size() - 1, new Marker(latitude, longitude, this, checkpoint));
+			Marker marker = new Marker(latitude, longitude);
+			marker.setPath(this);
+			marker.setLocation(checkpoint);
+			pathList.set(size() - 1, marker);
 			return true;
 		}
 		
 		// otherwise, add new point to the list if it's far
 		// from the last GPS coordinate in the path
 		else if (isEmpty() || point.distanceInKilometersTo(back()) > epsilon * 1e3) {
-			pathList.add(new Marker(latitude, longitude, this, checkpoint));
+			Marker marker = new Marker(latitude, longitude);
+			marker.setPath(this);
+			marker.setLocation(checkpoint);
+			pathList.add(marker);
 			return true;
 		}
 		

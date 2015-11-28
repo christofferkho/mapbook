@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -44,9 +45,11 @@ public class Location {
 	/**
 	 * Wraps a ParseObject through this Location class.
 	 * @param parseObject
+	 * @throws ParseException 
 	 */
-	public Location(ParseObject parseObject) {
+	public Location(ParseObject parseObject) throws ParseException {
 		this.parseObject = parseObject;
+		this.parseObject.fetchIfNeeded();
 	}
 	
 	/**

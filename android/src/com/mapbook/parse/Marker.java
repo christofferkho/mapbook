@@ -2,6 +2,7 @@ package com.mapbook.parse;
 
 import java.util.List;
 
+import com.mapbook.GPSTracker;
 import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
@@ -11,37 +12,39 @@ import com.parse.ParseUser;
 public class Marker extends ParseGeoPoint {
 	
 	// constructors
+	/**
+	 * Construct an empty marker using the current GPS coordinates.
+	 */
+	public Marker() {
+		this(GPSTracker.getLatitude(), GPSTracker.getLongitude());
+	}
+	
+	/**
+	 * Construct a marker object using a specified (latitude, longitude) pair.
+	 * @param latitude
+	 * @param longitude
+	 */
 	public Marker(double latitude, double longitude) {
 		this.user = ParseUser.getCurrentUser();
 		this.parseObject = new ParseObject("MARKER");
-		setCoordinates(latitude, longitude);
-	}
-	public Marker(double latitude, double longitude, Path path) {
-		this(latitude, longitude);
-		setPath(path);
-	}
-	public Marker(double latitude, double longitude, Location location) {
-		this(latitude, longitude);
-		setLocation(location);
-	}
-	public Marker(double latitude, double longitude, Path path, Location location) {
-		this(latitude, longitude);
-		setPath(path);
-		setLocation(location);
+		this.setCoordinates(latitude, longitude);
 	}
 	
 	/**
 	 * Wraps a ParseObject through this Marker class.
 	 * @param parseObject
-	 * @throws  
+	 * @throws ParseException
 	 */
-	public Marker(ParseObject parseObject) {
+	public Marker(ParseObject parseObject) throws ParseException {
 		this.parseObject = parseObject;
-		if (parseObject.has("location"))
+		parseObject.fetchIfNeeded();
+		ParseGeoPoint point = parseObject.getParseGeoPoint("coordinates");
+		this.setCoordinates(point.getLatitude(), point.getLongitude());
+		if (parseObject.has("location")) {
 			this.location = new Location(parseObject.getParseObject("location"));
+		}
 		if (parseObject.has("path")) {
-			try {this.path = new Path(parseObject.getParseObject("path"));}
-			catch (ParseException ex) {this.path = null; ex.printStackTrace();}
+			this.path = new Path(parseObject.getParseObject("path"));
 		}
 		this.user = parseObject.getParseUser("user");
 	}
@@ -98,10 +101,5 @@ public class Marker extends ParseGeoPoint {
 	public void save() {
 		getParseObject().saveEventually();
 	}
-	
-
-	
-	
-
 	
 }

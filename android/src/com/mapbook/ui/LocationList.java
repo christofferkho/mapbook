@@ -11,6 +11,7 @@ import com.mapbook.parse.Marker;
 import com.mapbook.parse.User;
 import com.parse.ParseUser;
 
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -30,17 +31,7 @@ public class LocationList extends MapbookActivity {
 		setContentView(R.layout.location_view);
 		prepareComponents();
 		GPSTracker.trackActivity(this);
-
-		((Button) findViewById(R.id.buttonz)).setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				((Button) v).setText(String.format("(%.4f, %.4f)", GPSTracker.getLatitude(), GPSTracker.getLongitude()));
-			}
-		});
-	}
-	
-	public String hex() {
-		return Integer.toHexString((int) (Math.random() * Integer.MAX_VALUE));
+		showUserLocations();
 	}
 	
 	// components
@@ -51,6 +42,25 @@ public class LocationList extends MapbookActivity {
 	private void prepareComponents() {
 		header = (TextView) findViewById(R.id.location_view_header);
 		locations = (LinearLayout) findViewById(R.id.location_view);
+	}
+	
+	// show the current user's locations in the view
+	private void showUserLocations() {
+		List<Marker> markers = User.getLocationMarkers();
+		if (markers == null || markers.isEmpty()) {
+			Button button = new Button(this);
+			button.setText("You have no markers. Click here to add a new marker.");
+			button.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View view) {
+					// TODO: Open add marker activity
+				}
+			});
+			locations.addView(button);
+		}
+		for (Marker marker : markers) {
+			addLocation(marker.getLocation());
+		}
 	}
 	
 	// a map of entries (as Views) to Marker object
@@ -74,9 +84,10 @@ public class LocationList extends MapbookActivity {
 	
 	// adds a location to the set and represent it as an "entry" object
 	public LinearLayout addLocation(Location location) {
-		
+
 		// inflate the empty layout from layout/location_view_entry.xml
 		LinearLayout entryLayout = (LinearLayout) getLayoutInflater().inflate(R.layout.location_view_entry, null);
+
 		TextView nameView = (TextView) entryLayout.findViewWithTag("name");
 		TextView notesView = (TextView) entryLayout.findViewWithTag("notes");
 		
@@ -90,6 +101,7 @@ public class LocationList extends MapbookActivity {
 		// manage associative definitions
 		entryToLocation.put(entryLayout, location);
 		locations.addView(entryLayout);
+		
 		return entryLayout;
 	}
 

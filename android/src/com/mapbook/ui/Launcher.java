@@ -1,13 +1,15 @@
 package com.mapbook.ui;
 
-import com.parse.LogOutCallback;
-import com.parse.ParseException;
+import com.mapbook.locationsaver.R;
+import com.mapbook.parse.User;
 import com.parse.ParseUser;
 
-import android.R;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnDismissListener;
+import android.app.Dialog;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
 
 public class Launcher extends MapbookActivity {
 	
@@ -18,10 +20,18 @@ public class Launcher extends MapbookActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if (ParseUser.getCurrentUser() == null)
-			launchActivity(Login.class);
-		else
-			launchActivity(Login.class, "Username: " + ParseUser.getCurrentUser().getUsername() + " was logged in.");
+		setContentView(R.layout.launcher);
+		findViewById(R.id.launcher_logo);
+		new Handler().postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				if (ParseUser.getCurrentUser() == null) 
+					launchActivity(Login.class);
+				else
+					launchActivity(LocationList.class, "Welcome back, " + User.getUsername() + "!");
+			}			
+		}, 1500);
+
 	}
 	
 }
